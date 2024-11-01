@@ -39,7 +39,7 @@ fn get_input()->Option<String>{
     }
 }
 
-fn get_bill_amounts() -> Option<f64> {
+fn get_bill_amount() -> Option<f64> {
     println!("Amount:");
     loop {
         let input = match get_input(){
@@ -49,12 +49,17 @@ fn get_bill_amounts() -> Option<f64> {
         if &input == ""{
             return None;
         }
+        let parsed_input: Result<f64, _> = input.parse();
+        match parsed_input {
+                Ok(amount) => return Some(amount),
+                Err(_) => println!("Please enter a number"),
+        }
     }
 }
 
 
 mod menu {
-    use crate::{get_input, Bill, Bills};
+    use crate::{get_input, get_bill_amount, Bill, Bills};
 
      pub fn add_bill(bills: &mut Bills){
         println!("Bill name:");
@@ -62,13 +67,19 @@ mod menu {
             Some(input) => input,
             None => return,
         };
-        let amount = match get_input(){
+        let amount = match get_bill_amount(){
             Some(amount) => amount,
             None => return,
         };
         let bill = Bill {name, amount};
-        bills.add(bill)
+        bills.add(bill);
         println!("Bill added")
+    }
+
+    pub fn view_bills(bills: &Bills){
+        for bill in bills.get_all(){
+            println!("{:?}", bill);
+        }
     }
 }
 
