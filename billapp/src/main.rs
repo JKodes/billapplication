@@ -107,13 +107,13 @@ impl MainMenu {
 }
 
 fn main(){
-
+    let mut bills = Bills::new();
     loop{
         MainMenu::show();
         let input = get_input().expect("no data entered");
         match MainMenu::from_str(input.as_str()){
-            Some(MainMenu::AddBill)=>(),
-            Some(MainMenu::ViewBill) =>(),
+            Some(MainMenu::AddBill)=> menu::add_bill(&mut bills),
+            Some(MainMenu::ViewBill) => menu::view_bills(&bills),
             None => return,
         }
     }
