@@ -106,7 +106,8 @@ mod menu {
 
 enum MainMenu {
     AddBill,
-    ViewBill
+    ViewBill,
+    RemoveBill
 }
 
 impl MainMenu {
@@ -114,14 +115,16 @@ impl MainMenu {
         match input{
             "1" => Some(Self::AddBill),
             "2" => Some(Self::ViewBill),
+            "3" => Some(Self::RemoveBill),
             _ => None,
         }
     }
     fn show(){
         println!("");
         println!(" == Bill Manager == ");
-        println!("1. AddBill");
-        println!("2. ViewBill");
+        println!("1. Add Bill");
+        println!("2. View Bill");
+        println!("3. Remove Bill");
         println!("");
         println!("Enter selection: ");
     }
@@ -135,6 +138,7 @@ fn main(){
         match MainMenu::from_str(input.as_str()){
             Some(MainMenu::AddBill)=> menu::add_bill(&mut bills),
             Some(MainMenu::ViewBill) => menu::view_bills(&bills),
+            Some(MainMenu::RemoveBill) => menu::remove_bill(&mut bills),
             None => return,
         }
     }
