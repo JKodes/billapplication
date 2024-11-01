@@ -1,5 +1,5 @@
 use std::io;
-
+use std::collections::HashMap;
 
 #[derive(Debug, Clone)]
 pub struct Bill {
@@ -8,7 +8,7 @@ pub struct Bill {
 }
 
 pub struct Bills {
-    inner: Vec<Bill>,
+    inner: HashMap<String, Bill>,
 }
 
 impl Bills {
