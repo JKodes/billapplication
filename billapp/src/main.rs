@@ -80,6 +80,23 @@ mod menu {
         println!("Bill added")
     }
 
+    pub fn remove_bill(bills: &mut Bills){
+        for bill in bills.get_all(){
+            println!("{:?}", bill);
+        }
+        println!("Enter the name of the bill so it can get removed:");
+
+        let name = match get_input(){
+            Some(name) => name,
+            None => return,
+        };
+        if bills.remove(&name){
+            println!("bill has been removed")
+        } else {
+            println!("bill cannot be found so nothing was deleted")
+        }
+    }
+
     pub fn view_bills(bills: &Bills){
         for bill in bills.get_all(){
             println!("{:?}", bill);
